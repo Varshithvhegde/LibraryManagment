@@ -53,3 +53,26 @@ npm start
 8. The project should now be running locally. Open your web browser and visit http://localhost:3000 to view the application.
 
 You can now explore and interact with the project locally on your computer. Make any necessary changes or enhancements as per your requirements.
+
+## Hosting your application
+To host your project on Vercel from a GitHub repository, follow these steps:
+
+1. Sign up for an account on Vercel (https://vercel.com) if you haven't already.
+
+2. Make sure your project is pushed to a GitHub repository.
+
+3. Login to Vercel and click on the "New Project" button.
+
+4. Select your GitHub account and repository from the list.
+
+5. Configure the project settings like the name, framework, and build settings. Make sure to set the root directory and the build command appropriate for your project.
+
+6. Review the deployment settings and make any necessary changes.
+
+7. Click on the "Deploy" button to start the deployment process.
+
+8. Vercel will build and deploy your project automatically. Once the deployment is complete, you will receive a unique URL for your hosted project.
+
+9. Visit the provided URL to see your project live on Vercel.
+
+Vercel will automatically rebuild and deploy your project whenever you push new changes to the GitHub repository. You can also configure custom domain settings and other advanced options in the Vercel project settings.
