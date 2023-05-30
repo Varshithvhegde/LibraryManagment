@@ -21,12 +21,31 @@ const HomePage = () => {
   return (
     <Box p={2} ml={2}>
       {showContent ? (
-      <Typography variant="h3" sx={{ mb: "20px" }}>
-        Home Page
-      </Typography>)
-      :(<div></div>)};
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Typography variant="h3" sx={{ mb: "20px" }}>
+            Home Page
+          </Typography>
+          <Stack direction="row" alignItems="center">
+            <Typography
+              variant="outlined"
+              component={Link}
+              to="/Library"
+              sx={{ textDecoration: "none" }}
+            >
+              Visit Documentation
+              <EastIcon />
+            </Typography>
+          </Stack>
+        </Stack>
+      ) : (
+        <div></div>
+      )}
+      ;
       {showContent ? (
-      
         <Stack
           direction="row"
           spacing={2}
@@ -81,7 +100,7 @@ const HomePage = () => {
             <Divider sx={{ mb: "10px", mt: "10px" }} />
             <Stack
               component={Link}
-              to="/Library"
+              to="https://varshithvhegde.github.io/LibraryManagment/"
               direction="row"
               sx={{ textDecoration: "none" }}
             >
