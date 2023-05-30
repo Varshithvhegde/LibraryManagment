@@ -35,7 +35,7 @@ export default function Login() {
       } else {
         // Redirect to user platform
         // Replace the URL with your user platform route or navigation logic
-        navigate("/");
+        navigate("/dashboard");
       }
     } catch(err) {
       console.log(err);

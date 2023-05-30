@@ -12,6 +12,7 @@ import Sidebar from "./components/Sidebar";
 import UserBooks from "./components/userBooks";
 import { Box, Stack } from "@mui/system";
 import AddBookForm from "./components/AddBook";
+import HomePage from "./components/home";
 const App = () => {
   const { currentUser } = useAuth();
   const [booksData, setBooksData] = useState([]);
@@ -58,7 +59,36 @@ const App = () => {
       </Stack>
     )
   };
-
+  // const router = createBrowserRouter([
+  //   {
+  //     path: "/",
+  //     element: <HomePage />
+  //   },
+  //   {
+  //     path: "/dashboard",
+  //     element: <Dashboard booksData={booksData} membersData={membersData} />
+  //   },
+  //   {
+  //     path: "/books",
+  //     element: <Books booksData={booksData} setBooksData={setBooksData} />
+  //   },
+  //   {
+  //     path: "/members",
+  //     element: <Members membersData={membersData} setMembersData={setMembersData} />
+  //   },
+  //   {
+  //     path: "/login",
+  //     element: <Login />
+  //   },
+  //   {
+  //     path: "/library",
+  //     element: <UserBooks booksData={booksData} setBooksData={setBooksData} />
+  //   },
+  //   {
+  //     path: "/addbooks",
+  //     element: <AddBookForm />
+  //   }
+  // ]);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -76,7 +106,6 @@ const App = () => {
           path: "/members",
           element: <Members membersData={membersData} setMembersData={setMembersData} />
         }
-        
       ]
     },
     {
@@ -85,14 +114,28 @@ const App = () => {
     },
     {
       path: "/library",
-      element : <UserBooks booksData={booksData} setBooksData={setBooksData} />
-    }
-    ,{
+      element: <UserBooks booksData={booksData} setBooksData={setBooksData} />
+    },
+    {
       path: "/addbooks",
-      element :<AddBookForm/>
+      element: <AddBookForm />
+    },
+    {
+      path: "/home",
+      element: <HomePage />
+    },
+    // Set the default route to /home
+    {
+      path: "*",
+      element: <Navigate to="/home" replace />
     }
   ]);
-
+  
+  return (
+    <div>
+      <RouterProvider router={router} />
+    </div>
+  );
   return (
     <div>
       <RouterProvider router={router} />

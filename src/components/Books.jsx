@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
-import { collection, addDoc,doc,deleteDoc,query,where,getDocs } from "firebase/firestore";
+import { collection, addDoc,doc,deleteDoc,query,where,getDocs,updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -96,22 +96,47 @@ const Books = ({ booksData, setBooksData }) => {
   
     setOpenForm(false);
   };
-  function editFormSubmit(e) {
+  async function editFormSubmit(e) {
     e.preventDefault();
-    tempData[editIndex].title = e.target.title.value;
-    tempData[editIndex].author = e.target.author.value;
-    tempData[editIndex].issued = e.target.issued.value === "issued";
-    // setBooksData([...tempData]);
-
+    const form = e.target; // Get the form element
+  
+    const newTitle = form.title.value;
+    const newAuthor = form.author.value;
+    const newPubDate = form.PublishedDate.value;
+    const newSubject = form.Subject.value;
+    const newIssued = form.issued.value;
+  
+    try {
+      const booksRef = collection(db, "books");
+      const querySnapshot = await getDocs(booksRef);
+  
+      querySnapshot.forEach((doc) => {
+        const bookData = doc.data();
+        if (bookData.bookId === booksData[editIndex].bookId) {
+          const bookRef = doc.ref;
+          updateDoc(bookRef, {
+            title: newTitle,
+            author: newAuthor,
+            pubDate: newPubDate,
+            subject: newSubject,
+            issued: newIssued,
+          });
+          console.log("Book updated successfully!");
+          window.location.reload(false);
+        }
+      });
+    } catch (error) {
+      console.error("Error updating book:", error);
+    }
+  
     setOpenForm(false);
   }
-
+  
+  
   const editBtnHandler = (index) => {
     setFormType("edit");
     setEditIndex(index);
     setOpenForm(true);
-  
-    // Set form values directly using document.getElementById
     setTimeout(() => {
       const book = booksData[index];
       document.getElementById("bookId").value = book.bookId;
@@ -121,7 +146,7 @@ const Books = ({ booksData, setBooksData }) => {
       document.getElementById("Subject").value = book.subject;
       document.querySelector(`input[name="issued"][value="${book.issued}"]`).checked = true;
       
-    }, 3000); // Adjust the delay time as needed
+    }, 3000);
   };
   
   const addBtntHandler = () => {
@@ -225,7 +250,7 @@ const Books = ({ booksData, setBooksData }) => {
             required
             variant="outlined"
             id="title"
-            
+            label="Title"
             // onChange={(e) => setTitle(e.target.value)}
             // value={title}
           />
