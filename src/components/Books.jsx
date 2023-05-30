@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc,doc,deleteDoc,query,where,getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -102,7 +102,7 @@ const Books = ({ booksData, setBooksData }) => {
     tempData[editIndex].author = e.target.author.value;
     tempData[editIndex].issued = e.target.issued.value === "issued";
     // setBooksData([...tempData]);
-    
+
     setOpenForm(false);
   }
 
@@ -116,13 +116,36 @@ const Books = ({ booksData, setBooksData }) => {
     setOpenForm(true);
   };
 
+  const deleteBook = async (bookId) => {
+    try {
+      const querySnapshot = await getDocs(
+        query(collection(db, "books"), where("bookId", "==", bookId))
+      );
+  
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          deleteDoc(doc.ref);
+        });
+        console.log("Book deleted successfully!");
+        window.location.reload();
+      } else {
+        console.log("Book not found!");
+        // reload window
+      }
+    } catch (error) {
+      console.error("Error deleting book:", error);
+    }
+  };
+  
   const deleteHandler = (index) => {
     let confirmBool = window.confirm(
       `Are you sure you want to delete "${booksData[index].title}"?`
     );
     if (confirmBool) {
-      tempData.splice(index, 1);
-      setBooksData([...tempData]);
+      console.log(index, booksData[index].title);
+      const bookId = booksData[index].bookId;
+      console.log(bookId);
+      deleteBook(bookId);
     }
   };
   const handleRadioChange = (event) => {
