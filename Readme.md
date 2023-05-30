@@ -76,3 +76,15 @@ To host your project on Vercel from a GitHub repository, follow these steps:
 9. Visit the provided URL to see your project live on Vercel.
 
 Vercel will automatically rebuild and deploy your project whenever you push new changes to the GitHub repository. You can also configure custom domain settings and other advanced options in the Vercel project settings.
+
+## Snapshots
+
+- **Splash Screen**
+- **Home Screen**
+- **Admin Login**
+- **Admin Dashboard**
+- **Admin Books list**
+- **Admin Members List**
+- **Admin Add or Edit Book**
+- **User Book List Page**
+- **User Book Search**
