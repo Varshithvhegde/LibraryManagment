@@ -110,7 +110,20 @@ const Books = ({ booksData, setBooksData }) => {
     setFormType("edit");
     setEditIndex(index);
     setOpenForm(true);
+  
+    // Set form values directly using document.getElementById
+    setTimeout(() => {
+      const book = booksData[index];
+      document.getElementById("bookId").value = book.bookId;
+      document.getElementById("title").value = book.title;
+      document.getElementById("author").value = book.author;
+      document.getElementById("PublishedDate").value = book.pubDate;
+      document.getElementById("Subject").value = book.subject;
+      document.querySelector(`input[name="issued"][value="${book.issued}"]`).checked = true;
+      
+    }, 3000); // Adjust the delay time as needed
   };
+  
   const addBtntHandler = () => {
     setFormType("add");
     setOpenForm(true);
@@ -212,7 +225,7 @@ const Books = ({ booksData, setBooksData }) => {
             required
             variant="outlined"
             id="title"
-            label="Title"
+            
             // onChange={(e) => setTitle(e.target.value)}
             // value={title}
           />
@@ -247,17 +260,20 @@ const Books = ({ booksData, setBooksData }) => {
               defaultValue={issued}
               name="issued"
               id="issued"
+              
               // onChange={handleRadioChange}
             >
               <FormControlLabel
                 value="available"
                 control={<Radio />}
                 label="Available"
+                
               />
               <FormControlLabel
                 value="issued"
                 control={<Radio />}
                 label="Issued"
+                
               />
             </RadioGroup>
           </Stack>
