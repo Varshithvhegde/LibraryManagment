@@ -51,7 +51,7 @@ const UserBooks = () => {
   let tempData = [...booksData];
 
   const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 1;
+  const resultsPerPage = 10;
 
   const indexOfLastResult = currentPage * resultsPerPage;
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;

@@ -43,24 +43,57 @@ const Books = ({ booksData, setBooksData }) => {
   const [formType, setFormType] = useState(null);
   const [editIndex, setEditIndex] = useState(null);
 
-  const [bookId, setBookId] = useState(0);
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [pubDate, setPubDate] = useState("");
-  const [subject, setSubject] = useState("");
+  // const [bookId, setBookId] = useState(0);
+  // const [title, setTitle] = useState("");
+  // const [author, setAuthor] = useState("");
+  // const [pubDate, setPubDate] = useState("");
+  // const [subject, setSubject] = useState("");
+  // const [issued, setIssued] = useState("issued");
+
+  const [bookId, setBookId] = useState(
+    formType === "edit" ? booksData[editIndex].bookId : (parseInt(booksData[booksData.length - 1].bookId) + 1).toString()
+  );
+  const [title, setTitle] = useState(
+    formType === "edit" ? booksData[editIndex].title : ""
+  );
+  const [author, setAuthor] = useState(
+    formType === "edit" ? booksData[editIndex].author : ""
+  );
+  const [pubDate, setPubDate] = useState(
+    formType === "edit" ? booksData[editIndex].pubDate : ""
+  );
+  const [subject, setSubject] = useState(
+    formType === "edit" ? booksData[editIndex].subject : ""
+  );
   const [issued, setIssued] = useState("issued");
 
   let tempData = [...booksData];
 
   const addFormSubmit = async (e) => {
     e.preventDefault();
+    const form = e.target; // Get the form element
+  
+    const newTitle = form.title.value;
+    const newAuthor = form.author.value;
+    const newPubDate = form.PublishedDate.value;
+    const newSubject = form.Subject.value;
+    const newIssued = form.issued.value;
+  
     try {
       const bookRef = collection(db, "books");
-      await addDoc(bookId, title, author, pubDate, subject, issued);
+      await addDoc(bookRef, {
+        bookId,
+        title: newTitle,
+        author: newAuthor,
+        pubDate: newPubDate,
+        subject: newSubject,
+        issued: newIssued,
+      });
       console.log("Book added successfully!");
     } catch (error) {
       console.error("Error adding book:", error);
     }
+  
     setOpenForm(false);
   };
   function editFormSubmit(e) {
@@ -69,7 +102,7 @@ const Books = ({ booksData, setBooksData }) => {
     tempData[editIndex].author = e.target.author.value;
     tempData[editIndex].issued = e.target.issued.value === "issued";
     // setBooksData([...tempData]);
-
+    
     setOpenForm(false);
   }
 
@@ -97,7 +130,7 @@ const Books = ({ booksData, setBooksData }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // console.log(e.target.title.value);
     try {
       const bookRef = collection(db, "books");
       await addDoc(bookRef, {
@@ -115,6 +148,7 @@ const Books = ({ booksData, setBooksData }) => {
       setAuthor("");
       setPubDate("");
       setSubject("");
+      setIssued(false);
 
       console.log("Book added successfully!");
     } catch (error) {
@@ -130,105 +164,89 @@ const Books = ({ booksData, setBooksData }) => {
         }}
       >
         <Box sx={formStyle}>
-          <Typography variant="h4" textAlign="center">
-            {formType === "edit" ? "Edit" : "Add"} Book
-          </Typography>
-          <form
-            onSubmit={formType === "edit" ? editFormSubmit : addFormSubmit}
-            style={{ height: "100%" }}
-            autoComplete="off"
-          >
-            <Stack
-              height={"100%"}
-              p={3}
-              alignItems="space-center"
-              justifyContent="space-around"
+      <Typography variant="h4" textAlign="center">
+        {formType === "edit" ? "Edit" : "Add"} Book
+      </Typography>
+      <form
+        onSubmit={formType === "edit" ? editFormSubmit : addFormSubmit}
+        style={{ height: "100%" }}
+        autoComplete="off"
+      >
+        <Stack
+          height={"100%"}
+          p={3}
+          alignItems="space-center"
+          justifyContent="space-around"
+        >
+          <TextField
+            disabled
+            variant="outlined"
+            label="Book ID"
+            id="bookId"
+            value={bookId}
+          />
+          <TextField
+            required
+            variant="outlined"
+            id="title"
+            label="Title"
+            // onChange={(e) => setTitle(e.target.value)}
+            // value={title}
+          />
+          <TextField
+            required
+            variant="outlined"
+            id="author"
+            label="Author"
+            // onChange={(e) => setAuthor(e.target.value)}
+            // value={author}
+          />
+          <TextField
+            required
+            variant="outlined"
+            id="PublishedDate"
+            label="Published Date"
+            // onChange={(e) => setPubDate(e.target.value)}
+            // value={pubDate}
+          />
+          <TextField
+            required
+            variant="outlined"
+            id="Subject"
+            label="Subject"
+            // onChange={(e) => setSubject(e.target.value)}
+            // value={subject}
+          />
+          <Stack direction="row" alignItems="center" gap={2}>
+            <FormLabel>Status:</FormLabel>
+            <RadioGroup
+              row
+              defaultValue={issued}
+              name="issued"
+              id="issued"
+              // onChange={handleRadioChange}
             >
-              <TextField
-                disabled
-                variant="outlined"
-                label="Book ID"
-                id="bookId"
-                onChange={setBookId(booksData[booksData.length - 1].bookId + 1)}
-                value={
-                  formType === "edit"
-                    ? booksData[editIndex].bookId
-                    : +booksData[booksData.length - 1].bookId + 1
-                }
+              <FormControlLabel
+                value="available"
+                control={<Radio />}
+                label="Available"
               />
-              <TextField
-                required
-                variant="outlined"
-                id="title"
-                label="Title"
-                onChange={(e) => setTitle(e.target.value)}
-                defaultValue={
-                  formType === "edit" ? booksData[editIndex].title : ""
-                }
-                value={title}
+              <FormControlLabel
+                value="issued"
+                control={<Radio />}
+                label="Issued"
               />
-              <TextField
-                required
-                variant="outlined"
-                id="author"
-                label="Author"
-                onChange={(e) => setAuthor(e.target.value)}
-                value={author}
-                defaultValue={
-                  formType === "edit" ? booksData[editIndex].author : ""
-                }
-              />
-              <TextField
-                required
-                variant="outlined"
-                id="PublishedDate"
-                label="Published Date"
-                onChange={(e) => setPubDate(e.target.value)}
-                value={pubDate}
-                defaultValue={
-                  formType === "edit" ? booksData[editIndex].pubDate : ""
-                }
-              />
-              <TextField
-                required
-                variant="outlined"
-                id="Subject"
-                label="Subject"
-                onChange={(e) => setSubject(e.target.value)}
-                value={subject}
-                defaultValue={
-                  formType === "edit" ? booksData[editIndex].subject : ""
-                }
-              />
-              <Stack direction="row" alignItems="center" gap={2}>
-                <FormLabel>Status:</FormLabel>
-                <RadioGroup
-                  row
-                  defaultValue={issued}
-                  name="issued"
-                  onChange={handleRadioChange}
-                >
-                  <FormControlLabel
-                    value="available"
-                    control={<Radio />}
-                    label="Available"
-                  />
-                  <FormControlLabel
-                    value="issued"
-                    control={<Radio />}
-                    label="Issued"
-                  />
-                </RadioGroup>
-              </Stack>
-              <Button variant="contained" color="success" type="submit">
-                {formType === "edit" ? "Update Book" : "Add Book"}
-              </Button>
-              <Button variant="outlined" onClick={() => setOpenForm(false)}>
-                Cancel
-              </Button>
-            </Stack>
-          </form>
-        </Box>
+            </RadioGroup>
+          </Stack>
+          <Button variant="contained" color="success" type="submit">
+            {formType === "edit" ? "Update Book" : "Add Book"}
+          </Button>
+          <Button variant="outlined" onClick={() => setOpenForm(false)}>
+            Cancel
+          </Button>
+        </Stack>
+      </form>
+    </Box>
         {/* <form onSubmit={handleSubmit} className="modal-form">
           <label>
             Book ID:
