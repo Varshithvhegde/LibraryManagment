@@ -4,19 +4,20 @@ import { Avatar, Card, Divider, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import { AccountCircle, LibraryBooks } from "@mui/icons-material";
 import EastIcon from "@mui/icons-material/East";
+import TextTransition, { presets } from "react-text-transition";
 const HomePage = () => {
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     const delay = setTimeout(() => {
       setShowContent(true);
-    }, 5000);
+    }, 3000);
 
     return () => {
       clearTimeout(delay);
     };
   }, []);
-
+  const TEXTS = ["Library", "Management", "System"];
   return (
     <Box p={2} ml={2}>
       {showContent ? (
