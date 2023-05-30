@@ -33,7 +33,7 @@ const HomePage = () => {
             <Typography
               variant="outlined"
               component={Link}
-              to="/Library"
+              to="https://varshithvhegde.github.io/LibraryManagment/"
               sx={{ textDecoration: "none" }}
             >
               Visit Documentation
@@ -100,7 +100,7 @@ const HomePage = () => {
             <Divider sx={{ mb: "10px", mt: "10px" }} />
             <Stack
               component={Link}
-              to="https://varshithvhegde.github.io/LibraryManagment/"
+              to="/Library"
               direction="row"
               sx={{ textDecoration: "none" }}
             >
