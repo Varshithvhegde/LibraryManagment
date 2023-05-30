@@ -130,7 +130,7 @@ const Books = ({ booksData, setBooksData }) => {
         window.location.reload();
       } else {
         console.log("Book not found!");
-        // reload window
+        
       }
     } catch (error) {
       console.error("Error deleting book:", error);
