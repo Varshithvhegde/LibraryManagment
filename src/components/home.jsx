@@ -106,7 +106,7 @@ const HomePage = () => {
               animation: "fade 1s ease-in-out infinite",
             }}
           >
-            LMS Splash Screen
+            Library Management System....
           </Typography>
         </Box>
       )}
