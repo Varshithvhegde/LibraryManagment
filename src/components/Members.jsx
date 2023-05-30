@@ -108,8 +108,8 @@ const Members = ({ membersData, setMembersData }) => {
                 id="phone"
                 label="Phone"
                 type="tel"
-                placeholder="123-456-7890"
-                inputProps={{ pattern:"[0-9]{3}-[0-9]{3}-[0-9]{4}" }}
+                placeholder="9960203040"
+                inputProps={{ pattern:"[0-9]{10}" }}
                 defaultValue={formType === "edit" ? membersData[editIndex].phone : null}
               />
               <TextField
