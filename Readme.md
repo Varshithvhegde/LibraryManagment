@@ -37,12 +37,19 @@ It is a simple web application consisting of two parts: an admin management sect
 ## Setting up Project Locally
 
 To set up the project locally, follow these steps:
- 1. Make sure you have Node.js and npm (Node Package Manager) installed on your computer. You can download them from the official Node.js website.
- 2. Clone the project repository from the version control system (e.g., GitHub) using Git or download the source code as a ZIP file from the repo [Library Management](https://github.com/Varshithvhegde/LibraryManagment).
- 3. Open a terminal or command prompt and navigate to the project directory.
- 4. Run the following command to install the project dependencies:
+1. Make sure you have Node.js and npm (Node Package Manager) installed on your computer. You can download them from the official Node.js website.
+2. Clone the project repository from the version control system (e.g., GitHub) using Git or download the source code as a ZIP file from the repo [Library Management](https://github.com/Varshithvhegde/LibraryManagment).
+3. Open a terminal or command prompt and navigate to the project directory.
+4. Run the following command to install the project dependencies:
 ```
 npm install
 ```
 5. Create a Firebase project and set up Firebase Authentication and Firestore services. Obtain the necessary configuration details, including the API keys and credentials.
 6. Add those configuration API keys and credentials to the projectin the page [Firebase.js](src/firebase.js)
+7. Start the development server by running the following command:
+```
+npm start
+```
+8. The project should now be running locally. Open your web browser and visit http://localhost:3000 to view the application.
+
+You can now explore and interact with the project locally on your computer. Make any necessary changes or enhancements as per your requirements.
