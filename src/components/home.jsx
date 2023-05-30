@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Avatar, Card, Divider, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import { AccountCircle, LibraryBooks } from "@mui/icons-material";
-
+import EastIcon from "@mui/icons-material/East";
 const HomePage = () => {
   const [showContent, setShowContent] = useState(false);
 
@@ -57,6 +57,7 @@ const HomePage = () => {
               sx={{ textDecoration: "none" }}
             >
               <Typography>Login to Admin Dashboard</Typography>
+              <EastIcon />
             </Stack>
           </Card>
           <Card sx={{ p: "20px", width: "250px" }}>
@@ -84,6 +85,7 @@ const HomePage = () => {
               sx={{ textDecoration: "none" }}
             >
               <Typography>Go to Library</Typography>
+              <EastIcon />
             </Stack>
           </Card>
         </Stack>
