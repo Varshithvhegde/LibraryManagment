@@ -85,6 +85,7 @@ Vercel will automatically rebuild and deploy your project whenever you push new 
 - **Admin Dashboard**
 - **Admin Books list**
 - **Admin Members List**
+- **Admin Add Members Form**
 - **Admin Add or Edit Book**
 - **User Book List Page**
 - **User Book Search**
