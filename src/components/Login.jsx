@@ -31,11 +31,11 @@ export default function Login() {
 
         // Redirect to dashboard
         // Replace the URL with your dashboard route or navigation logic
-        navigate("/dashboard");
+        navigate("/");
       } else {
         // Redirect to user platform
         // Replace the URL with your user platform route or navigation logic
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch(err) {
       console.log(err);
@@ -96,7 +96,11 @@ export default function Login() {
           </Button>
           {error && <Typography textAlign="center" color="error" m={2}>Wrong email or password!</Typography>}
         </Box>
-       
+        <Alert severity="info">
+          <AlertTitle>Use login info</AlertTitle>
+          Email Address: <strong>admin@library.com</strong><br /><br />
+          Password: <strong>admin123</strong>
+        </Alert>
       </Container>
     </Container>
   );

@@ -384,6 +384,8 @@ const Books = ({ booksData, setBooksData }) => {
               <TableCell sx={{ fontSize: "1.1em" }}>Book ID</TableCell>
               <TableCell sx={{ fontSize: "1.1em" }}>Title</TableCell>
               <TableCell sx={{ fontSize: "1.1em" }}>Author</TableCell>
+              <TableCell sx={{ fontSize: "1.1em" }}>Pub Date</TableCell>
+              <TableCell sx={{ fontSize: "1.1em" }}>Subject</TableCell>              
               <TableCell sx={{ fontSize: "1.1em" }}>Status</TableCell>
               <TableCell sx={{ fontSize: "1.1em" }}>Actions</TableCell>
             </TableRow>
@@ -400,6 +402,8 @@ const Books = ({ booksData, setBooksData }) => {
                   </TableCell>
                   <TableCell>{book.title}</TableCell>
                   <TableCell>{book.author}</TableCell>
+                  <TableCell>{book.pubDate}</TableCell>
+                  <TableCell>{book.subject}</TableCell>
                   <TableCell
                     sx={book.issued ? { color: "red" } : { color: "green" }}
                   >
