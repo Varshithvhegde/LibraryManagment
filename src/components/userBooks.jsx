@@ -23,6 +23,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ReactLoading from "react-loading";
+// import { Button, Box } from "@material-ui/core";
 // import { db } from "./firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
 const formStyle = {
@@ -45,6 +47,7 @@ const UserBooks = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   let tempData = [...booksData];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,6 +64,7 @@ const UserBooks = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     async function firestoreData() {
       let tempBooks = [];
       try {
@@ -72,6 +76,7 @@ const UserBooks = () => {
       } catch (err) {
         console.log(err);
       }
+      setIsLoading(false);
       setBooksData(tempBooks);
       setFilteredBooks(tempBooks);
     }
@@ -240,16 +245,32 @@ const UserBooks = () => {
         ))}
       </TableBody>
           )}
+          
         </Table>
       </TableContainer>
-      <div>
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-          <button key={page} onClick={() => handlePageChange(page)}>
-            {page}
-          </button>
-        ))}
-      </div>
-
+      <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+          {isLoading && (
+                    <ReactLoading
+                        type={"bars"}
+                        color={"#0090da"}
+                        height={150}
+                        width={150}
+                    />
+                )}</div>
+      <Box display="flex" justifyContent="center" mt={2}>
+    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+      <Button
+        key={page}
+        onClick={() => handlePageChange(page)}
+        variant="contained"
+        color="primary"
+        style={{ margin: "0.5rem" }}
+      >
+        {page}
+      </Button>
+    ))}
+  </Box>
+      
       <BookForm />
     </Box>
   );
