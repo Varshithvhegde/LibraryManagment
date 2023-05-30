@@ -80,12 +80,32 @@ Vercel will automatically rebuild and deploy your project whenever you push new 
 ## Snapshots
 
 - **Splash Screen**
+![Splash-screen](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/5db2296b-8d13-491b-bc54-84607bfaf64e)
+
 - **Home Screen**
+![Home_page](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/f45f6d30-238a-4b9a-b085-6f465d58f0e6)
+
 - **Admin Login**
+![admin_login](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/d81b9a39-c801-4daa-8707-05f2c74971c9)
+
 - **Admin Dashboard**
+![admin_dashboard](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/d23bd228-9dc2-41c6-b635-af5c6babf176)
+
 - **Admin Books list**
+![admin_book_list](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/a278cc38-41bf-4d6f-a6bc-c3c4bf958a65)
+
 - **Admin Members List**
+![admin_members](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/04e953da-4c81-4f4d-a578-a5bd320e46b7)
+
 - **Admin Add Members Form**
+![Admin_Add_member](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/3310c3d7-330f-4dd7-a9bc-92c90db6299a)
+
 - **Admin Add or Edit Book**
+![Admin_add_book_edit_form](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/e7736f2d-ed40-4671-9828-166e5e08fe7e)
+
 - **User Book List Page**
+![User_book_list](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/508858ff-64dc-4f42-965f-9e9824e772fe)
+
 - **User Book Search**
+![user_search_result](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/1884643d-709a-48a4-a521-0d8c1698156e)
+
