@@ -20,6 +20,7 @@ export default function AddBookForm() {
         author,
         pubDate,
         subject,
+        issued
       });
 
       // Clear the form after successful submission
