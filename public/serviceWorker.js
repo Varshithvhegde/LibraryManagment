@@ -1,6 +1,6 @@
-const CACHE_NAME = 'my-pwa-cache';
+const CACHE_NAME = 'my-pwa2-cache';
 
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll([

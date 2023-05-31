@@ -3,7 +3,7 @@
   "short_name": "lms",
   "icons": [
     {
-      "src": "./logo/new_logo.png",
+      "src": "./favicon.png",
       "type": "image/png",
       "sizes": "1024x1024"
     }
