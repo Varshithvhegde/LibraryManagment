@@ -34,7 +34,11 @@ const HomePage = () => {
               variant="outlined"
               component={Link}
               to="https://varshithvhegde.github.io/LibraryManagment/"
-              sx={{ textDecoration: "none", display: "inline-flex", alignItems: "center" }}
+              sx={{
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+              }}
             >
               Visit Documentation
               <EastIcon sx={{ verticalAlign: "middle", marginLeft: "5px" }} />
@@ -44,7 +48,7 @@ const HomePage = () => {
       ) : (
         <div></div>
       )}
-      
+
       {showContent ? (
         <Stack
           direction="row"

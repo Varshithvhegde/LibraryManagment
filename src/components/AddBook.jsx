@@ -8,7 +8,7 @@ export default function AddBookForm() {
   const [author, setAuthor] = useState("");
   const [pubDate, setPubDate] = useState("");
   const [subject, setSubject] = useState("");
-  const [issued,setIssued]= useState("issued");
+  const [issued, setIssued] = useState("issued");
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -20,7 +20,7 @@ export default function AddBookForm() {
         author,
         pubDate,
         subject,
-        issued
+        issued,
       });
 
       // Clear the form after successful submission
@@ -40,27 +40,47 @@ export default function AddBookForm() {
     <form onSubmit={handleSubmit}>
       <label>
         Book ID:
-        <input type="text" value={bookId} onChange={(e) => setBookId(e.target.value)} />
+        <input
+          type="text"
+          value={bookId}
+          onChange={(e) => setBookId(e.target.value)}
+        />
       </label>
       <br />
       <label>
         Title:
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </label>
       <br />
       <label>
         Author:
-        <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} />
+        <input
+          type="text"
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+        />
       </label>
       <br />
       <label>
         Publication Date:
-        <input type="text" value={pubDate} onChange={(e) => setPubDate(e.target.value)} />
+        <input
+          type="text"
+          value={pubDate}
+          onChange={(e) => setPubDate(e.target.value)}
+        />
       </label>
       <br />
       <label>
         Subject:
-        <input type="text" value={subject} onChange={(e) => setSubject(e.target.value)} />
+        <input
+          type="text"
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+        />
       </label>
       <br />
       <button type="submit">Add Book</button>

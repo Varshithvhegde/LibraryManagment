@@ -13,7 +13,16 @@ import {
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
-import { collection, addDoc,doc,deleteDoc,query,where,getDocs,updateDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  doc,
+  deleteDoc,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../firebase";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -24,8 +33,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../index.css";
 const formStyle = {
   position: "absolute",
@@ -53,7 +62,9 @@ const Books = ({ booksData, setBooksData }) => {
   // const [issued, setIssued] = useState("issued");
 
   const [bookId, setBookId] = useState(
-    formType === "edit" ? booksData[editIndex].bookId : (parseInt(booksData[booksData.length - 1].bookId) + 1).toString()
+    formType === "edit"
+      ? booksData[editIndex].bookId
+      : (parseInt(booksData[booksData.length - 1].bookId) + 1).toString()
   );
   const [title, setTitle] = useState(
     formType === "edit" ? booksData[editIndex].title : ""
@@ -74,13 +85,13 @@ const Books = ({ booksData, setBooksData }) => {
   const addFormSubmit = async (e) => {
     e.preventDefault();
     const form = e.target; // Get the form element
-  
+
     const newTitle = form.title.value;
     const newAuthor = form.author.value;
     const newPubDate = form.PublishedDate.value;
     const newSubject = form.Subject.value;
     const newIssued = form.issued.value;
-  
+
     try {
       const bookRef = collection(db, "books");
       await addDoc(bookRef, {
@@ -92,28 +103,28 @@ const Books = ({ booksData, setBooksData }) => {
         issued: newIssued,
       });
       console.log("Book added successfully!");
-      toast.success('Book added successfully!');
+      toast.success("Book added successfully!");
     } catch (error) {
       console.error("Error adding book:", error);
-      toast.error('Error adding book:');
+      toast.error("Error adding book:");
     }
-  
+
     setOpenForm(false);
   };
   async function editFormSubmit(e) {
     e.preventDefault();
     const form = e.target; // Get the form element
-  
+
     const newTitle = form.title.value;
     const newAuthor = form.author.value;
     const newPubDate = form.PublishedDate.value;
     const newSubject = form.Subject.value;
     const newIssued = form.issued.value;
-  
+
     try {
       const booksRef = collection(db, "books");
       const querySnapshot = await getDocs(booksRef);
-  
+
       querySnapshot.forEach((doc) => {
         const bookData = doc.data();
         if (bookData.bookId === booksData[editIndex].bookId) {
@@ -126,19 +137,18 @@ const Books = ({ booksData, setBooksData }) => {
             issued: newIssued,
           });
           console.log("Book updated successfully!");
-          toast.success('Book updated successfully!');
+          toast.success("Book updated successfully!");
           // window.location.reload(false);
         }
       });
     } catch (error) {
       console.error("Error updating book:", error);
-      toast.error('Error updating book');
+      toast.error("Error updating book");
     }
-  
+
     setOpenForm(false);
   }
-  
-  
+
   const editBtnHandler = (index) => {
     setFormType("edit");
     setEditIndex(index);
@@ -150,11 +160,12 @@ const Books = ({ booksData, setBooksData }) => {
       document.getElementById("author").value = book.author;
       document.getElementById("PublishedDate").value = book.pubDate;
       document.getElementById("Subject").value = book.subject;
-      document.querySelector(`input[name="issued"][value="${book.issued}"]`).checked = true;
-      
+      document.querySelector(
+        `input[name="issued"][value="${book.issued}"]`
+      ).checked = true;
     }, 3000);
   };
-  
+
   const addBtntHandler = () => {
     setFormType("add");
     setOpenForm(true);
@@ -165,7 +176,7 @@ const Books = ({ booksData, setBooksData }) => {
       const querySnapshot = await getDocs(
         query(collection(db, "books"), where("bookId", "==", bookId))
       );
-  
+
       if (!querySnapshot.empty) {
         querySnapshot.forEach((doc) => {
           deleteDoc(doc.ref);
@@ -176,14 +187,13 @@ const Books = ({ booksData, setBooksData }) => {
         // window.location.reload();
       } else {
         console.log("Book not found!");
-        
       }
     } catch (error) {
       console.error("Error deleting book:", error);
       toast.error("Error deleting book");
     }
   };
-  
+
   const deleteHandler = (index) => {
     let confirmBool = window.confirm(
       `Are you sure you want to delete "${booksData[index].title}"?`
@@ -209,7 +219,7 @@ const Books = ({ booksData, setBooksData }) => {
         author,
         pubDate,
         subject,
-        issued
+        issued,
       });
 
       // Clear the form after successful submission
@@ -234,92 +244,90 @@ const Books = ({ booksData, setBooksData }) => {
         }}
       >
         <Box sx={formStyle}>
-      <Typography variant="h4" textAlign="center">
-        {formType === "edit" ? "Edit" : "Add"} Book
-      </Typography>
-      <form
-        onSubmit={formType === "edit" ? editFormSubmit : addFormSubmit}
-        style={{ height: "100%" }}
-        autoComplete="off"
-      >
-        <Stack
-          height={"100%"}
-          p={3}
-          alignItems="space-center"
-          justifyContent="space-around"
-        >
-          <TextField
-            disabled
-            variant="outlined"
-            label="Book ID"
-            id="bookId"
-            value={bookId}
-          />
-          <TextField
-            required
-            variant="outlined"
-            id="title"
-            label="Title"
-            // onChange={(e) => setTitle(e.target.value)}
-            // value={title}
-          />
-          <TextField
-            required
-            variant="outlined"
-            id="author"
-            label="Author"
-            // onChange={(e) => setAuthor(e.target.value)}
-            // value={author}
-          />
-          <TextField
-            required
-            variant="outlined"
-            id="PublishedDate"
-            label="Published Date"
-            // onChange={(e) => setPubDate(e.target.value)}
-            // value={pubDate}
-          />
-          <TextField
-            required
-            variant="outlined"
-            id="Subject"
-            label="Subject"
-            // onChange={(e) => setSubject(e.target.value)}
-            // value={subject}
-          />
-          <Stack direction="row" alignItems="center" gap={2}>
-            <FormLabel>Status:</FormLabel>
-            <RadioGroup
-              row
-              defaultValue={issued}
-              name="issued"
-              id="issued"
-              
-              // onChange={handleRadioChange}
+          <Typography variant="h4" textAlign="center">
+            {formType === "edit" ? "Edit" : "Add"} Book
+          </Typography>
+          <form
+            onSubmit={formType === "edit" ? editFormSubmit : addFormSubmit}
+            style={{ height: "100%" }}
+            autoComplete="off"
+          >
+            <Stack
+              height={"100%"}
+              p={3}
+              alignItems="space-center"
+              justifyContent="space-around"
             >
-              <FormControlLabel
-                value="available"
-                control={<Radio />}
-                label="Available"
-                
+              <TextField
+                disabled
+                variant="outlined"
+                label="Book ID"
+                id="bookId"
+                value={bookId}
               />
-              <FormControlLabel
-                value="issued"
-                control={<Radio />}
-                label="Issued"
-                
+              <TextField
+                required
+                variant="outlined"
+                id="title"
+                label="Title"
+                // onChange={(e) => setTitle(e.target.value)}
+                // value={title}
               />
-            </RadioGroup>
-          </Stack>
-          <Button variant="contained" color="success" type="submit">
-            {formType === "edit" ? "Update Book" : "Add Book"}
-          </Button>
-          <Button variant="outlined" onClick={() => setOpenForm(false)}>
-            Cancel
-          </Button>
-        </Stack>
-      </form>
-    </Box>
+              <TextField
+                required
+                variant="outlined"
+                id="author"
+                label="Author"
+                // onChange={(e) => setAuthor(e.target.value)}
+                // value={author}
+              />
+              <TextField
+                required
+                variant="outlined"
+                id="PublishedDate"
+                label="Published Date"
+                // onChange={(e) => setPubDate(e.target.value)}
+                // value={pubDate}
+              />
+              <TextField
+                required
+                variant="outlined"
+                id="Subject"
+                label="Subject"
+                // onChange={(e) => setSubject(e.target.value)}
+                // value={subject}
+              />
+              <Stack direction="row" alignItems="center" gap={2}>
+                <FormLabel>Status:</FormLabel>
+                <RadioGroup
+                  row
+                  defaultValue={issued}
+                  name="issued"
+                  id="issued"
+
+                  // onChange={handleRadioChange}
+                >
+                  <FormControlLabel
+                    value="available"
+                    control={<Radio />}
+                    label="Available"
+                  />
+                  <FormControlLabel
+                    value="issued"
+                    control={<Radio />}
+                    label="Issued"
+                  />
+                </RadioGroup>
+              </Stack>
+              <Button variant="contained" color="success" type="submit">
+                {formType === "edit" ? "Update Book" : "Add Book"}
+              </Button>
+              <Button variant="outlined" onClick={() => setOpenForm(false)}>
+                Cancel
+              </Button>
+            </Stack>
+          </form>
+        </Box>
         {/* <form onSubmit={handleSubmit} className="modal-form">
           <label>
             Book ID:
@@ -374,7 +382,7 @@ const Books = ({ booksData, setBooksData }) => {
 
   return (
     <Box p={2} ml={2}>
-    <ToastContainer />
+      <ToastContainer />
       <Stack direction="row" spacing={4} mb={3}>
         <Typography variant="h4">Books</Typography>
         <Button
@@ -395,7 +403,7 @@ const Books = ({ booksData, setBooksData }) => {
               <TableCell sx={{ fontSize: "1.1em" }}>Title</TableCell>
               <TableCell sx={{ fontSize: "1.1em" }}>Author</TableCell>
               <TableCell sx={{ fontSize: "1.1em" }}>Pub Date</TableCell>
-              <TableCell sx={{ fontSize: "1.1em" }}>Subject</TableCell>              
+              <TableCell sx={{ fontSize: "1.1em" }}>Subject</TableCell>
               <TableCell sx={{ fontSize: "1.1em" }}>Status</TableCell>
               <TableCell sx={{ fontSize: "1.1em" }}>Actions</TableCell>
             </TableRow>

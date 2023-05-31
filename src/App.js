@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { Navigate, Outlet, createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  Navigate,
+  Outlet,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
@@ -33,8 +38,7 @@ const App = () => {
         querySnapshot2.forEach((doc) => {
           tempBooks.push(doc.data());
         });
-      }
-      catch (err) {
+      } catch (err) {
         console.log(err);
       }
       setMembersData(tempMembers);
@@ -50,14 +54,14 @@ const App = () => {
   const Layout = () => {
     return (
       <Stack direction={"row"}>
-        <Box >
+        <Box>
           <Sidebar />
         </Box>
         <Box sx={{ flex: 6 }}>
           <Outlet />
         </Box>
       </Stack>
-    )
+    );
   };
   // const router = createBrowserRouter([
   //   {
@@ -92,45 +96,56 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <RequireAuth><Layout /></RequireAuth>,
+      element: (
+        <RequireAuth>
+          <Layout />
+        </RequireAuth>
+      ),
       children: [
         {
           path: "/",
-          element: <Dashboard booksData={booksData} membersData={membersData} />
+          element: (
+            <Dashboard booksData={booksData} membersData={membersData} />
+          ),
         },
         {
           path: "/books",
-          element: <Books booksData={booksData} setBooksData={setBooksData} />
+          element: <Books booksData={booksData} setBooksData={setBooksData} />,
         },
         {
           path: "/members",
-          element: <Members membersData={membersData} setMembersData={setMembersData} />
-        }
-      ]
+          element: (
+            <Members
+              membersData={membersData}
+              setMembersData={setMembersData}
+            />
+          ),
+        },
+      ],
     },
     {
       path: "/login",
-      element: <Login />
+      element: <Login />,
     },
     {
       path: "/library",
-      element: <UserBooks booksData={booksData} setBooksData={setBooksData} />
+      element: <UserBooks booksData={booksData} setBooksData={setBooksData} />,
     },
     {
       path: "/addbooks",
-      element: <AddBookForm />
+      element: <AddBookForm />,
     },
     {
       path: "/home",
-      element: <HomePage />
+      element: <HomePage />,
     },
     // Set the default route to /home
     {
       path: "*",
-      element: <Navigate to="/home" replace />
-    }
+      element: <Navigate to="/home" replace />,
+    },
   ]);
-  
+
   return (
     <div>
       <RouterProvider router={router} />
@@ -140,7 +155,7 @@ const App = () => {
     <div>
       <RouterProvider router={router} />
     </div>
-  )
-}
+  );
+};
 
 export default App;
