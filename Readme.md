@@ -259,6 +259,7 @@ const editBtnHandler = (index) => {
     }, 3000);
 };
 ```
+
 ## Future Enhancements
 
 - More responsive Tables
