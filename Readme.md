@@ -259,3 +259,10 @@ const editBtnHandler = (index) => {
     }, 3000);
 };
 ```
+## Future Enhancements
+
+- More responsive Tables
+- Connecting the Members to Books Database
+- Member Login and Registration
+- Image Cards for books
+
