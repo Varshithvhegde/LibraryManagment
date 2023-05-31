@@ -27,6 +27,9 @@ import ReactLoading from "react-loading";
 // import { Button, Box } from "@material-ui/core";
 // import { db } from "./firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
+import { Link } from "react-router-dom";
+import EastIcon from "@mui/icons-material/East";
+
 const formStyle = {
   position: "absolute",
   top: "50%",
@@ -203,21 +206,34 @@ const UserBooks = () => {
 
   return (
     <Box p={2} ml={2}>
-      <Stack direction="row" spacing={4} mb={3}>
-        <Typography variant="h4">Books</Typography>
-        <TextField
-          label="Search"
-          variant="outlined"
-          size="small"
-          value={searchQuery}
-          onChange={handleSearch}
-        />
-        {searchQuery && (
-          <Typography variant="body2">
-            Search Results: {filteredBooks.length}
-          </Typography>
-        )}
-      </Stack>
+      <Stack direction="row" spacing={4} mb={3} alignItems="center" justifyContent="space-between">
+  <Stack direction="row" alignItems="center">
+    <Typography variant="h4">Books</Typography>
+    <TextField
+      label="Search"
+      variant="outlined"
+      size="small"
+      value={searchQuery}
+      onChange={handleSearch}
+    />
+    {searchQuery && (
+      <Typography variant="body2">
+        Search Results: {filteredBooks.length}
+      </Typography>
+    )}
+  </Stack>
+  <Stack direction="row" alignItems="center">
+    <Typography
+      variant="outlined"
+      component={Link}
+      to="/home"
+      sx={{ textDecoration: "none" }}
+    >
+      Back to Home
+      <EastIcon sx={{ verticalAlign: "middle", marginLeft: "5px" }} />
+    </Typography>
+  </Stack>
+</Stack>
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
