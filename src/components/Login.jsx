@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"
+import { useAuth } from "../context/AuthContext";
 
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { Alert, AlertTitle } from '@mui/material';
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { Alert, AlertTitle } from "@mui/material";
+import { Link } from "react-router-dom";
+import EastIcon from "@mui/icons-material/East";
 
 export default function Login() {
   const [error, setError] = useState(false);
@@ -18,14 +20,13 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const { login, currentUser } = useAuth();
 
-
   const navigate = useNavigate();
 
-  async function  handleLogin(event) {
+  async function handleLogin(event) {
     event.preventDefault();
     try {
       setLoading(true);
-      await login(email, password)
+      await login(email, password);
       if (currentUser && currentUser.email === "admin@library.com") {
         console.log("Redirecting to dashboard");
 
@@ -37,27 +38,30 @@ export default function Login() {
         // Replace the URL with your user platform route or navigation logic
         navigate("/");
       }
-    } catch(err) {
+    } catch (err) {
       console.log(err);
       setError(true);
     }
     setLoading(false);
-  };
+  }
 
-  if(currentUser) return <Navigate to="/" />
+  if (currentUser) return <Navigate to="/" />;
 
   return (
     <Container component="main" maxWidth="sm">
-      <Typography variant='h4' mt={4} textAlign="center">Library Management System</Typography>
-      <Container maxWidth="xs"
+      <Typography variant="h4" mt={4} textAlign="center">
+        Library Management System
+      </Typography>
+      <Container
+        maxWidth="xs"
         sx={{
           marginTop: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -94,12 +98,33 @@ export default function Login() {
           >
             Login
           </Button>
-          {error && <Typography textAlign="center" color="error" m={2}>Wrong email or password!</Typography>}
+          {error && (
+            <Typography textAlign="center" color="error" m={2}>
+              Wrong email or password!
+            </Typography>
+          )}
         </Box>
         <Alert severity="info">
           <AlertTitle>Use login info</AlertTitle>
-          Email Address: <strong>admin@library.com</strong><br /><br />
+          Email Address: <strong>admin@library.com</strong>
+          <br />
+          <br />
           Password: <strong>admin123</strong>
+          <br />
+          <br />
+          <Typography
+            variant="outlined"
+            component={Link}
+            to="/home"
+            sx={{
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+            }}
+          >
+            Go to Home{" "}
+            <EastIcon sx={{ verticalAlign: "middle", marginLeft: "5px" }} />
+          </Typography>
         </Alert>
       </Container>
     </Container>

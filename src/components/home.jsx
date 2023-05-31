@@ -34,10 +34,10 @@ const HomePage = () => {
               variant="outlined"
               component={Link}
               to="https://varshithvhegde.github.io/LibraryManagment/"
-              sx={{ textDecoration: "none" }}
+              sx={{ textDecoration: "none", display: "inline-flex", alignItems: "center" }}
             >
               Visit Documentation
-              <EastIcon />
+              <EastIcon sx={{ verticalAlign: "middle", marginLeft: "5px" }} />
             </Typography>
           </Stack>
         </Stack>
