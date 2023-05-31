@@ -24,6 +24,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../index.css";
 const formStyle = {
   position: "absolute",
@@ -90,8 +92,10 @@ const Books = ({ booksData, setBooksData }) => {
         issued: newIssued,
       });
       console.log("Book added successfully!");
+      toast.success('Book added successfully!');
     } catch (error) {
       console.error("Error adding book:", error);
+      toast.error('Error adding book:');
     }
   
     setOpenForm(false);
@@ -122,11 +126,13 @@ const Books = ({ booksData, setBooksData }) => {
             issued: newIssued,
           });
           console.log("Book updated successfully!");
-          window.location.reload(false);
+          toast.success('Book updated successfully!');
+          // window.location.reload(false);
         }
       });
     } catch (error) {
       console.error("Error updating book:", error);
+      toast.error('Error updating book');
     }
   
     setOpenForm(false);
@@ -165,13 +171,16 @@ const Books = ({ booksData, setBooksData }) => {
           deleteDoc(doc.ref);
         });
         console.log("Book deleted successfully!");
-        window.location.reload();
+        toast.success("Book deleted successfully!");
+
+        // window.location.reload();
       } else {
         console.log("Book not found!");
         
       }
     } catch (error) {
       console.error("Error deleting book:", error);
+      toast.error("Error deleting book");
     }
   };
   
@@ -365,6 +374,7 @@ const Books = ({ booksData, setBooksData }) => {
 
   return (
     <Box p={2} ml={2}>
+    <ToastContainer />
       <Stack direction="row" spacing={4} mb={3}>
         <Typography variant="h4">Books</Typography>
         <Button
