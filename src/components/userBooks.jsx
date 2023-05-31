@@ -189,78 +189,6 @@ const UserBooks = () => {
     sortBooks();
   }, [sortCriteria, sortDirection]);
 
-  const BookForm = () => {
-    return (
-      <Modal
-        open={openForm}
-        onClose={() => {
-          setOpenForm(false);
-        }}
-      >
-        <Box sx={formStyle}>
-          <Typography variant="h4" textAlign="center">
-            {formType === "edit" ? "Edit" : "Add"} Book
-          </Typography>
-          <form
-            onSubmit={formType === "edit" ? editFormSubmit : addFormSubmit}
-            style={{ height: "100%" }}
-            autoComplete="off"
-          >
-            <Stack
-              height={"100%"}
-              p={3}
-              alignItems="space-center"
-              justifyContent="space-around"
-            >
-              <TextField
-                disabled
-                variant="outlined"
-                label="Book ID"
-                id="bookId"
-                // value={formType === "edit" ? booksData[editIndex].bookId : +booksData[booksData.length - 1].bookId + 1}
-              />
-              <TextField
-                required
-                variant="outlined"
-                id="title"
-                label="Title"
-                defaultValue={
-                  formType === "edit" ? booksData[editIndex].title : ""
-                }
-              />
-              <TextField
-                required
-                variant="outlined"
-                id="author"
-                label="Author"
-                defaultValue={
-                  formType === "edit" ? booksData[editIndex].author : ""
-                }
-              />
-              <TextField
-                required
-                variant="outlined"
-                id="pubDate"
-                label="date"
-                defaultValue={
-                  formType === "edit" ? booksData[editIndex].pubDate : ""
-                }
-              />
-              <TextField
-                required
-                variant="outlined"
-                id="subject"
-                label="sub"
-                defaultValue={
-                  formType === "edit" ? booksData[editIndex].subject : ""
-                }
-              />
-            </Stack>
-          </form>
-        </Box>
-      </Modal>
-    );
-  };
 
   return (
     <Box p={2} ml={2}>
@@ -381,7 +309,7 @@ const UserBooks = () => {
         ))}
       </Box>
 
-      <BookForm />
+      {/* <BookForm /> */}
     </Box>
   );
 };
