@@ -120,7 +120,7 @@ const Books = ({ booksData, setBooksData }) => {
     const newTitle = form.title.value;
     const newAuthor = form.author.value;
     const newPubDate = form.PublishedDate.value;
-    const newSubject = form.Subject.value;
+    const newSubject = form.subject.value;
     const newIssued = form.issued.value;
 
     try {
@@ -162,9 +162,11 @@ const Books = ({ booksData, setBooksData }) => {
       document.getElementById("author").value = book.author;
       document.getElementById("PublishedDate").value = book.pubDate;
       document.getElementById("subject").value = book.subject;
-      document.querySelector(
-        `input[name="issued"][value="${book.issued}"]`
-      ).checked = true;
+      // document.querySelector(
+      //   `input[name="issued"][value="${book.issued}"]`
+      // ).checked = true;
+      document.getElementById("issued").value = book.issued;
+      document.getElementById("issued").checked = true;
     }, 3000);
   };
 
@@ -295,7 +297,7 @@ const Books = ({ booksData, setBooksData }) => {
               <TextField
                 required
                 variant="outlined"
-                id="Subject"
+                id="subject"
                 label="Subject"
                 // onChange={(e) => setSubject(e.target.value)}
                 // value={subject}
@@ -311,11 +313,13 @@ const Books = ({ booksData, setBooksData }) => {
                   // onChange={handleRadioChange}
                 >
                   <FormControlLabel
+                  name="issued"
                     value="available"
                     control={<Radio />}
                     label="Available"
                   />
                   <FormControlLabel
+                  name="issued"
                     value="issued"
                     control={<Radio />}
                     label="Issued"
@@ -426,9 +430,9 @@ const Books = ({ booksData, setBooksData }) => {
                   <TableCell>{book.pubDate}</TableCell>
                   <TableCell>{book.subject}</TableCell>
                   <TableCell
-                    sx={book.issued ? { color: "red" } : { color: "green" }}
+                    sx={book.issued==="issued" ? { color: "red" } : { color: "green" }}
                   >
-                    {book.issued ? "Issued" : "Available"}
+                    {book.issued==="issued" ? "Issued" : "Available"}
                   </TableCell>
                   <TableCell>
                     <Tooltip title="Edit">
