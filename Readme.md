@@ -131,3 +131,80 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth();
 ```
+
+### Retrieving data from Firebase Firestore
+
+```javascript
+async function firestoreData() {
+      let tempBooks = [];
+      try {
+        const q2 = query(collection(db, "books"), orderBy("bookId"));
+        const querySnapshot2 = await getDocs(q2);
+        querySnapshot2.forEach((doc) => {
+          tempBooks.push(doc.data());
+        });
+      } catch (err) {
+        console.log(err);
+      }
+}
+```
+### Adding a new Book to Firestore database
+
+```javascript
+const [bookId, setBookId] = useState(0);
+const [title, setTitle] = useState("");
+const [author, setAuthor] = useState("");
+const [pubDate, setPubDate] = useState("");
+const [subject, setSubject] = useState("");
+const [issued,setIssued]= useState("issued");
+const AddNewBook = async (e) => {
+    e.preventDefault();
+    try {
+        const bookRef = collection(db, "books");
+        await addDoc(bookRef, {
+                bookId,
+                title,
+                author,
+                pubDate,
+                subject,
+                issued
+            }
+        );
+    }
+}
+```
+
+### Deleting Book from Firestore
+
+```javascript
+const deleteBook = async (bookId) => {
+    try {
+        const querySnapshot = await getDocs(
+        query(collection(db, "books"), where("bookId", "==", bookId))
+        );
+
+        if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+            deleteDoc(doc.ref);
+        });
+        console.log("Book deleted successfully!");
+        window.location.reload();
+        } 
+        else {
+            console.log("Book not found!");
+        }
+    } catch (error) {
+        console.error("Error deleting book:", error);
+    }
+};
+
+const deleteHandler = (index) => {
+    let confirmBool = window.confirm(`Are you sure you want to delete "${booksData[index].title}"?`);
+    if (confirmBool) {
+        console.log(index, booksData[index].title);
+        const bookId = booksData[index].bookId;
+        console.log(bookId);
+        deleteBook(bookId);
+    }
+};
+```
