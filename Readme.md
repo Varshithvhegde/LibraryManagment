@@ -208,3 +208,54 @@ const deleteHandler = (index) => {
     }
 };
 ```
+### Updating Book Data
+
+```javascript
+async function editFormSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const newTitle = form.title.value;
+    const newAuthor = form.author.value;
+    const newPubDate = form.PublishedDate.value;
+    const newSubject = form.Subject.value;
+    const newIssued = form.issued.value;
+    try {
+        const booksRef = collection(db, "books");
+        const querySnapshot = await getDocs(booksRef);
+        querySnapshot.forEach((doc) => {
+        const bookData = doc.data();
+        if (bookData.bookId === booksData[editIndex].bookId) {
+            const bookRef = doc.ref;
+            updateDoc(bookRef, {
+            title: newTitle,
+            author: newAuthor,
+            pubDate: newPubDate,
+            subject: newSubject,
+            issued: newIssued,
+            });
+            console.log("Book updated successfully!");
+            window.location.reload(false);
+        }
+        });
+    } catch (error) {
+        console.error("Error updating book:", error);
+    }
+}
+  
+  
+const editBtnHandler = (index) => {
+    setFormType("edit");
+    setEditIndex(index);
+    setOpenForm(true);
+    setTimeout(() => {
+        const book = booksData[index];
+        document.getElementById("bookId").value = book.bookId;
+        document.getElementById("title").value = book.title;
+        document.getElementById("author").value = book.author;
+        document.getElementById("PublishedDate").value = book.pubDate;
+        document.getElementById("Subject").value = book.subject;
+        document.querySelector(`input[name="issued"][value="${book.issued}"]`).checked = true;
+        
+    }, 3000);
+};
+```
