@@ -44,7 +44,7 @@ const HomePage = () => {
       ) : (
         <div></div>
       )}
-      ;
+      
       {showContent ? (
         <Stack
           direction="row"
