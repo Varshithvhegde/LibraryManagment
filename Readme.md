@@ -104,10 +104,12 @@ Vercel will automatically rebuild and deploy your project whenever you push new 
 ![Admin_add_book_edit_form](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/e7736f2d-ed40-4671-9828-166e5e08fe7e)
 
 - **User Book List Page**
-![User_book_list](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/508858ff-64dc-4f42-965f-9e9824e772fe)
+![user_book_lists](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/7d12a599-ef93-4fa4-a44b-c38766d86213)
+
 
 - **User Book Search**
-![user_search_result](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/1884643d-709a-48a4-a521-0d8c1698156e)
+![user_search_results](https://github.com/Varshithvhegde/LibraryManagment/assets/80502833/cb40f0b2-f751-4a48-86f2-5913f650fd74)
+
 
 ## Code review
 
