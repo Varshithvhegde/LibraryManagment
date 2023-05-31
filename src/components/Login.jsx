@@ -13,6 +13,9 @@ import { Alert, AlertTitle } from "@mui/material";
 import { Link } from "react-router-dom";
 import EastIcon from "@mui/icons-material/East";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
+import "react-toastify/dist/ReactToastify.css";
+import "../index.css";
+import { ToastContainer, toast } from "react-toastify";
 export default function Login() {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
@@ -48,10 +51,12 @@ export default function Login() {
   navigator.clipboard.writeText(text)
     .then(() => {
       console.log('Text copied to clipboard: ', text);
+      toast.success("Text copied successfully");
       // You can show a success toast or perform any other action
     })
     .catch((error) => {
       console.error('Failed to copy text to clipboard: ', error);
+      toast.error("Failed to copy text to clipboard");
       // You can show an error toast or perform any other action
     });
 };
@@ -59,6 +64,7 @@ export default function Login() {
 
   return (
     <Container component="main" maxWidth="sm">
+     <ToastContainer />
       <Typography variant="h4" mt={4} textAlign="center">
         Library Management System
       </Typography>
