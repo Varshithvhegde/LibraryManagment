@@ -267,3 +267,6 @@ const editBtnHandler = (index) => {
 - Member Login and Registration
 - Image Cards for books
 
+## License
+
+[MIT](/LICENSE)
