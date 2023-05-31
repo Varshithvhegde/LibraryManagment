@@ -24,6 +24,12 @@ import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReactLoading from "react-loading";
+import {
+  
+  Select,
+  MenuItem,
+} from "@mui/material";
+import TableSortLabel from '@mui/material/TableSortLabel';
 // import { Button, Box } from "@material-ui/core";
 // import { db } from "./firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
@@ -51,6 +57,9 @@ const UserBooks = () => {
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [sortCriteria, setSortCriteria] = useState("title");
+  const [sortDirection, setSortDirection] = useState("asc");
+
   let tempData = [...booksData];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -126,10 +135,59 @@ const UserBooks = () => {
     setFilteredBooks(filtered);
   };
 
+  // useEffect(() => {
+  //   // Filter books when searchQuery changes
+  //   filterBooks(searchQuery);
+  // }, [searchQuery]);
   useEffect(() => {
-    // Filter books when searchQuery changes
-    filterBooks(searchQuery);
-  }, [searchQuery]);
+    const filterBooks = () => {
+      const filtered = booksData.filter((book) => {
+        const { title, author, pubDate, subject } = book;
+
+        // Check if any of the book properties match the search query
+        return (
+          title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          pubDate.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          subject.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      });
+
+      setFilteredBooks(filtered);
+    };
+
+    filterBooks();
+  }, [booksData, searchQuery]);
+  
+
+  const handleSortCriteriaChange = (event) => {
+    setSortCriteria(event.target.value);
+  };
+
+  const handleSortDirectionChange = (event) => {
+    setSortDirection(event.target.value);
+  };
+
+  const sortBooks = () => {
+    const sorted = [...filteredBooks].sort((a, b) => {
+      const fieldA = a[sortCriteria];
+      const fieldB = b[sortCriteria];
+
+      if (fieldA < fieldB) {
+        return sortDirection === "asc" ? -1 : 1;
+      }
+      if (fieldA > fieldB) {
+        return sortDirection === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+
+    setFilteredBooks(sorted);
+  };
+
+  useEffect(() => {
+    sortBooks();
+  }, [sortCriteria, sortDirection]);
 
   const BookForm = () => {
     return (
@@ -238,6 +296,27 @@ const UserBooks = () => {
             Back to Home
             <EastIcon sx={{ verticalAlign: "middle", marginLeft: "5px" }} />
           </Typography>
+        </Stack>
+        <Stack direction="row" alignItems="center">
+          <Select
+            value={sortCriteria}
+            onChange={handleSortCriteriaChange}
+            variant="outlined"
+            sx={{ marginRight: "8px" }}
+          >
+            <MenuItem value="title">Title</MenuItem>
+            <MenuItem value="author">Author</MenuItem>
+            <MenuItem value="pubDate">Publish Date</MenuItem>
+            <MenuItem value="subject">Subject</MenuItem>
+          </Select>
+          <Select
+            value={sortDirection}
+            onChange={handleSortDirectionChange}
+            variant="outlined"
+          >
+            <MenuItem value="asc">Ascending</MenuItem>
+            <MenuItem value="desc">Descending</MenuItem>
+          </Select>
         </Stack>
       </Stack>
 
