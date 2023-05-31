@@ -8,6 +8,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
+  DatePicker,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -80,7 +81,7 @@ const Books = ({ booksData, setBooksData }) => {
     formType === "edit" ? booksData[editIndex].subject : ""
   );
   const [issued, setIssued] = useState("issued");
-    const[sub,setSub]=useState("");
+  const [sub, setSub] = useState("");
   let tempData = [...booksData];
 
   const addFormSubmit = async (e) => {
@@ -299,26 +300,6 @@ const Books = ({ booksData, setBooksData }) => {
                 // onChange={(e) => setSubject(e.target.value)}
                 // value={subject}
               />
-              {/* <InputLabel id="subject-label">Subject</InputLabel>
-  <Select
-    labelId="subject-label"
-    id="subject"
-    label="Subject"
-    // value={sub}
-    // onChange={(e) => setSub(e.target.value)}
-    defaultChecked ="Technology"
-    
-  >
-   
-      <MenuItem value="Technology">
-        Technology
-      </MenuItem>
-      <MenuItem value="Sci-Fi">Sci-Fi</MenuItem>
-      <MenuItem value="Novel">Novel</MenuItem>
-      <MenuItem value="Fantasy">Fantasy</MenuItem>
-      <MenuItem value="Literature">Literature</MenuItem>
-    
-  </Select> */}
               <Stack direction="row" alignItems="center" gap={2}>
                 <FormLabel>Status:</FormLabel>
                 <RadioGroup
