@@ -1,4 +1,4 @@
-import { useState,useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Button,
   FormControlLabel,
@@ -55,7 +55,10 @@ const UserBooks = () => {
 
   const indexOfLastResult = currentPage * resultsPerPage;
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
-  const currentResults = filteredBooks.slice(indexOfFirstResult, indexOfLastResult);
+  const currentResults = filteredBooks.slice(
+    indexOfFirstResult,
+    indexOfLastResult
+  );
 
   const totalPages = Math.ceil(filteredBooks.length / resultsPerPage);
 
@@ -229,48 +232,54 @@ const UserBooks = () => {
           </TableHead>
           {filteredBooks.length > 0 && (
             <TableBody>
-        {currentResults.map((book, index) => (
-          <TableRow
-            key={book.bookId}
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-          >
-            <TableCell component="th" scope="row">
-              {book.bookId}
-            </TableCell>
-            <TableCell>{book.title}</TableCell>
-            <TableCell>{book.author}</TableCell>
-            <TableCell>{book.pubDate}</TableCell>
-            <TableCell>{book.subject}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
+              {currentResults.map((book, index) => (
+                <TableRow
+                  key={book.bookId}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {book.bookId}
+                  </TableCell>
+                  <TableCell>{book.title}</TableCell>
+                  <TableCell>{book.author}</TableCell>
+                  <TableCell>{book.pubDate}</TableCell>
+                  <TableCell>{book.subject}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
           )}
-          
         </Table>
       </TableContainer>
-      <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-          {isLoading && (
-                    <ReactLoading
-                        type={"bars"}
-                        color={"#0090da"}
-                        height={150}
-                        width={150}
-                    />
-                )}</div>
-      <Box display="flex" justifyContent="center" mt={2}>
-    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-      <Button
-        key={page}
-        onClick={() => handlePageChange(page)}
-        variant="contained"
-        color="primary"
-        style={{ margin: "0.5rem" }}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
-        {page}
-      </Button>
-    ))}
-  </Box>
-      
+        {isLoading && (
+          <ReactLoading
+            type={"bars"}
+            color={"#0090da"}
+            height={150}
+            width={150}
+          />
+        )}
+      </div>
+      <Box display="flex" justifyContent="center" mt={2}>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <Button
+            key={page}
+            onClick={() => handlePageChange(page)}
+            variant="contained"
+            color="primary"
+            style={{ margin: "0.5rem" }}
+          >
+            {page}
+          </Button>
+        ))}
+      </Box>
+
       <BookForm />
     </Box>
   );
