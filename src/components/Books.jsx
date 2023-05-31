@@ -91,7 +91,7 @@ const Books = ({ booksData, setBooksData }) => {
     const newTitle = form.title.value;
     const newAuthor = form.author.value;
     const newPubDate = form.PublishedDate.value;
-    const newSubject = form.Subject.value;
+    const newSubject = form.subject.value;
     const newIssued = form.issued.value;
 
     try {
