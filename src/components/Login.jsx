@@ -12,7 +12,7 @@ import Container from "@mui/material/Container";
 import { Alert, AlertTitle } from "@mui/material";
 import { Link } from "react-router-dom";
 import EastIcon from "@mui/icons-material/East";
-
+import FileCopyIcon from "@mui/icons-material/FileCopy";
 export default function Login() {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
@@ -44,7 +44,17 @@ export default function Login() {
     }
     setLoading(false);
   }
-
+  const copyToClipboard = (text) => {
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      console.log('Text copied to clipboard: ', text);
+      // You can show a success toast or perform any other action
+    })
+    .catch((error) => {
+      console.error('Failed to copy text to clipboard: ', error);
+      // You can show an error toast or perform any other action
+    });
+};
   if (currentUser) return <Navigate to="/" />;
 
   return (
@@ -105,27 +115,35 @@ export default function Login() {
           )}
         </Box>
         <Alert severity="info">
-          <AlertTitle>Use login info</AlertTitle>
-          Email Address: <strong>admin@library.com</strong>
-          <br />
-          <br />
-          Password: <strong>admin123</strong>
-          <br />
-          <br />
-          <Typography
-            variant="outlined"
-            component={Link}
-            to="/home"
-            sx={{
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-            }}
-          >
-            Go to Home{" "}
-            <EastIcon sx={{ verticalAlign: "middle", marginLeft: "5px" }} />
-          </Typography>
-        </Alert>
+  <AlertTitle>Use login info</AlertTitle>
+  Email Address: <strong>admin@library.com</strong>
+  <FileCopyIcon
+    sx={{ verticalAlign: "middle", cursor: "pointer" }}
+    onClick={() => copyToClipboard("admin@library.com")}
+  />
+  <br />
+  <br />
+  Password: <strong>admin123</strong>
+  <FileCopyIcon
+    sx={{ verticalAlign: "middle", cursor: "pointer" }}
+    onClick={() => copyToClipboard("admin123")}
+  />
+  <br />
+  <br />
+  <Typography
+    variant="outlined"
+    component={Link}
+    to="/home"
+    sx={{
+      textDecoration: "none",
+      display: "inline-flex",
+      alignItems: "center",
+    }}
+  >
+    Go to Home{" "}
+    <EastIcon sx={{ verticalAlign: "middle", marginLeft: "5px" }} />
+  </Typography>
+</Alert>
       </Container>
     </Container>
   );
