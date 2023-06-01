@@ -215,17 +215,6 @@ const UserBooks = () => {
           )}
         </Stack>
         <Stack direction="row" alignItems="center">
-          <Typography
-            variant="outlined"
-            component={Link}
-            to="/home"
-            sx={{ textDecoration: "none" }}
-          >
-            Back to Home
-            <EastIcon sx={{ verticalAlign: "middle", marginLeft: "5px" }} />
-          </Typography>
-        </Stack>
-        <Stack direction="row" alignItems="center">
           <Select
             value={sortCriteria}
             onChange={handleSortCriteriaChange}
@@ -245,6 +234,17 @@ const UserBooks = () => {
             <MenuItem value="asc">Ascending</MenuItem>
             <MenuItem value="desc">Descending</MenuItem>
           </Select>
+        </Stack>
+        <Stack direction="row" alignItems="center">
+          <Typography
+            variant="outlined"
+            component={Link}
+            to="/home"
+            sx={{ textDecoration: "none" }}
+          >
+            Back to Home
+            <EastIcon sx={{ verticalAlign: "middle", marginLeft: "5px" }} />
+          </Typography>
         </Stack>
       </Stack>
 
