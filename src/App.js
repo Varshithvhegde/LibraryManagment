@@ -22,6 +22,17 @@ const App = () => {
   const { currentUser } = useAuth();
   const [booksData, setBooksData] = useState([]);
   const [membersData, setMembersData] = useState([]);
+  window.addEventListener("online", handleConnection);
+  window.addEventListener("offline", handleConnection);
+
+  function handleConnection() {
+    if (navigator.onLine) {
+      console.log("Online");
+    } else {
+      console.log("Offline");
+      window.location.reload();
+    }
+  }
 
   useEffect(() => {
     async function firestoreData() {
