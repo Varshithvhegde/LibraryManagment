@@ -1,19 +1,57 @@
-const CACHE_NAME = 'my-pwa2-cache';
+const CACHE_NAME = "version-1";
+const urlsToCache = [
+    "/",
+    // "/customer/",
+    "/index.html",
+    "/offline.html",
+    "/static/js/main.chunk.js",
+    "/static/js/0.chunk.js",
+    "/static/js/bundle.js",
+];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll([
-        '/',
-        '/index.html',
-        '/favicon.png'
-      ]))
-  );
+//Install SW
+
+self.addEventListener("install", (event) => {
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            console.log("Opened Cache");
+            return cache.addAll(urlsToCache);
+        })
+    );
 });
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
-  );
+//Listen for Requests
+
+self.addEventListener("fetch", (event) => {
+    // var request = event.request;
+    // if (request.method === "GET") {
+    if (!navigator.onLine) {
+        event.respondWith(
+            caches.match(event.request).then(() => {
+                return fetch(event.request).catch(() =>
+                    caches.match("offline.html")
+                );
+            })
+        );
+    }
+    // }
+});
+
+//Activate the SW
+
+self.addEventListener("activate", (event) => {
+    const cacheWhiteList = [];
+    cacheWhiteList.push(CACHE_NAME);
+
+    event.waitUntil(
+        caches.keys().then((cacheNames) =>
+            Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (!cacheWhiteList.includes(cacheName)) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            )
+        )
+    );
 });

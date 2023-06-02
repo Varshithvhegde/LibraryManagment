@@ -3,12 +3,12 @@
   "short_name": "lms",
   "icons": [
     {
-      "src": "./favicon.png",
+      "src": "./favicon.jpg",
       "type": "image/png",
       "sizes": "1024x1024"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "scope": ".",
   "display": "standalone",
   "theme_color": "#ffffff",
