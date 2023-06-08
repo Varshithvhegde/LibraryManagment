@@ -24,12 +24,9 @@ import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReactLoading from "react-loading";
-import {
-  
-  Select,
-  MenuItem,
-} from "@mui/material";
-import TableSortLabel from '@mui/material/TableSortLabel';
+import { Select, MenuItem } from "@mui/material";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import { Card, CardContent, CardMedia, Dialog, DialogContent, Grid } from "@mui/material";
 // import { Button, Box } from "@material-ui/core";
 // import { db } from "./firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
@@ -97,25 +94,7 @@ const UserBooks = () => {
     }
     firestoreData();
   }, []);
-  function addFormSubmit(e) {
-    e.preventDefault();
-    tempData.push({
-      //   bookId: e.target.bookId.value,
-      title: e.target.title.value,
-      author: e.target.author.value,
-      issued: e.target.issued.value === "issued",
-    });
-    setBooksData([...tempData]);
-    setOpenForm(false);
-  }
-  function editFormSubmit(e) {
-    e.preventDefault();
-    tempData[editIndex].title = e.target.title.value;
-    tempData[editIndex].author = e.target.author.value;
-    tempData[editIndex].issued = e.target.issued.value === "issued";
-    setBooksData([...tempData]);
-    setOpenForm(false);
-  }
+
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -134,7 +113,15 @@ const UserBooks = () => {
 
     setFilteredBooks(filtered);
   };
+  const [selectedBook, setSelectedBook] = useState(null);
 
+const handleCardClick = (book) => {
+  setSelectedBook(book);
+};
+
+const handleCloseDialog = () => {
+  setSelectedBook(null);
+};
   // useEffect(() => {
   //   // Filter books when searchQuery changes
   //   filterBooks(searchQuery);
@@ -158,7 +145,6 @@ const UserBooks = () => {
 
     filterBooks();
   }, [booksData, searchQuery]);
-  
 
   const handleSortCriteriaChange = (event) => {
     setSortCriteria(event.target.value);
@@ -188,7 +174,6 @@ const UserBooks = () => {
   useEffect(() => {
     sortBooks();
   }, [sortCriteria, sortDirection]);
-
 
   return (
     <Box p={2} ml={2}>
@@ -248,37 +233,55 @@ const UserBooks = () => {
         </Stack>
       </Stack>
 
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead sx={{ background: "#ddd" }}>
-            <TableRow>
-              <TableCell sx={{ fontSize: "1.1em" }}>Book ID</TableCell>
-              <TableCell sx={{ fontSize: "1.1em" }}>Title</TableCell>
-              <TableCell sx={{ fontSize: "1.1em" }}>Author</TableCell>
-              <TableCell sx={{ fontSize: "1.1em" }}>Published Date</TableCell>
-              <TableCell sx={{ fontSize: "1.1em" }}>Subject</TableCell>
-            </TableRow>
-          </TableHead>
-          {filteredBooks.length > 0 && (
-            <TableBody>
-              {currentResults.map((book, index) => (
-                <TableRow
-                  key={book.bookId}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {book.bookId}
-                  </TableCell>
-                  <TableCell>{book.title}</TableCell>
-                  <TableCell>{book.author}</TableCell>
-                  <TableCell>{book.pubDate}</TableCell>
-                  <TableCell>{book.subject}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          )}
-        </Table>
-      </TableContainer>
+      {filteredBooks.length > 0 && (
+  <Grid container spacing={2} justifyContent="center">
+    {currentResults.map((book, index) => (
+      <Grid item xs={12} sm={6} md={4} key={book.bookId}>
+        <Card sx={{ maxWidth: 345 }} onClick={() => handleCardClick(book)}>
+          <CardMedia
+            component="img"
+            height="140"
+            image={book.imgpath} // Replace with your actual image URL or import the image file
+            alt="Dummy Image"
+             sx={{ objectFit: 'contain' }}
+          />
+          <CardContent sx={{ textAlign: 'center' }}>
+            {/* <Typography variant="h6" component="div">
+              Book ID: {book.bookId}
+            </Typography> */}
+            <Typography variant="h6" color="text.secondary">
+              Title: {book.title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Author: {book.author}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Published Date: {book.pubDate}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Subject: {book.subject}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+    ))}
+  </Grid>
+)}
+
+<Dialog open={selectedBook !== null} onClose={handleCloseDialog}>
+  <DialogContent>
+    {selectedBook && (
+      <div>
+        <Typography variant="h6" component="div">
+          Book ID: {selectedBook.bookId}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Description: {selectedBook.description}
+        </Typography>
+      </div>
+    )}
+  </DialogContent>
+</Dialog>
       <div
         style={{
           display: "flex",

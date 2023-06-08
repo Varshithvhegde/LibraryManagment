@@ -93,6 +93,8 @@ const Books = ({ booksData, setBooksData }) => {
     const newPubDate = form.PublishedDate.value;
     const newSubject = form.subject.value;
     const newIssued = form.issued.value;
+    const imagepath=form.imgpath.value;
+    const description = form.description.value;
 
     try {
       const bookRef = collection(db, "books");
@@ -103,6 +105,8 @@ const Books = ({ booksData, setBooksData }) => {
         pubDate: newPubDate,
         subject: newSubject,
         issued: newIssued,
+        description: description,
+        imgpath: imagepath
       });
       console.log("Book added successfully!");
       toast.success("Book added successfully!");
@@ -122,7 +126,8 @@ const Books = ({ booksData, setBooksData }) => {
     const newPubDate = form.PublishedDate.value;
     const newSubject = form.subject.value;
     const newIssued = form.issued.value;
-
+    const imagepath=form.imgpath.value;
+    const description = form.description.value;
     try {
       const booksRef = collection(db, "books");
       const querySnapshot = await getDocs(booksRef);
@@ -137,6 +142,8 @@ const Books = ({ booksData, setBooksData }) => {
             pubDate: newPubDate,
             subject: newSubject,
             issued: newIssued,
+            description: description,
+            imgpath: imagepath
           });
           console.log("Book updated successfully!");
           toast.success("Book updated successfully!");
@@ -167,6 +174,8 @@ const Books = ({ booksData, setBooksData }) => {
       // ).checked = true;
       document.getElementById("issued").value = book.issued;
       document.getElementById("issued").checked = true;
+      document.getElementById("imgpath").value = book.imgpath;
+      document.getElementById("description").value = book.description;
     }, 3000);
   };
 
@@ -299,6 +308,22 @@ const Books = ({ booksData, setBooksData }) => {
                 variant="outlined"
                 id="subject"
                 label="Subject"
+                // onChange={(e) => setSubject(e.target.value)}
+                // value={subject}
+              />
+               <TextField
+                required
+                variant="outlined"
+                id="imgpath"
+                label="Image Link"
+                // onChange={(e) => setSubject(e.target.value)}
+                // value={subject}
+              />
+               <TextField
+                required
+                variant="outlined"
+                id="description"
+                label="Description"
                 // onChange={(e) => setSubject(e.target.value)}
                 // value={subject}
               />
