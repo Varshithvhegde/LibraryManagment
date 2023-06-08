@@ -241,7 +241,7 @@ const handleCloseDialog = () => {
           <CardMedia
             component="img"
             height="140"
-            image={book.imgpath} // Replace with your actual image URL or import the image file
+            image={book.imgpath} 
             alt="Dummy Image"
              sx={{ objectFit: 'contain' }}
           />
