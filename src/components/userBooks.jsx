@@ -237,13 +237,23 @@ const handleCloseDialog = () => {
   <Grid container spacing={2} justifyContent="center">
     {currentResults.map((book, index) => (
       <Grid item xs={12} sm={6} md={4} key={book.bookId}>
-        <Card sx={{ maxWidth: 345 }} onClick={() => handleCardClick(book)}>
+        <Card
+          sx={{
+            maxWidth: 345,
+            transition: 'box-shadow 0.3s',
+            '&:hover': {
+              boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
+              transform: 'scale(1.05)',
+            },
+          }}
+          onClick={() => handleCardClick(book)}
+        >
           <CardMedia
             component="img"
             height="140"
             image={book.imgpath} 
             alt="Dummy Image"
-             sx={{ objectFit: 'contain' }}
+            sx={{ objectFit: 'contain' }}
           />
           <CardContent sx={{ textAlign: 'center' }}>
             {/* <Typography variant="h6" component="div">
@@ -273,7 +283,7 @@ const handleCloseDialog = () => {
     {selectedBook && (
       <div>
         <Typography variant="h6" component="div">
-          Book ID: {selectedBook.bookId}
+           {selectedBook.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Description: {selectedBook.description}
